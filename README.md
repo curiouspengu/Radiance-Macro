@@ -4,7 +4,7 @@
  A macro for the Roblox game "Sol's RNG", including features such as obby completion and item collection, remote contorl, discord webhooks and more.
  
 ## Installation
-  - Download and run installer.bat
+  - Go to Releases and download and run installer.bat
 
 ## Features
 Radiance Macro has a couple of different features it is capable of. These include:
