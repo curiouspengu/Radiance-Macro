@@ -61,6 +61,9 @@ class KeybindsWindow(CTkToplevel):
         global ahk_keybind_dict
 
         keypress_event = keypress.keysym
+        
+        if keypress_event in ahk_keybind_dict:
+            keypress_event = ahk_keybind_dict[keypress_event]
     
         if not keypress_event in keybind.split(" + "):
             if count > 4:

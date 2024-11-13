@@ -1,7 +1,7 @@
 {
     "version": "2.0-alpha",
     "latest_beta_version": "2.0-alpha",
-    "parent_path": "C:\\Users\\Curious Pengu\\Documents\\Apps\\dolphSol\\dolphSol-Improvement-Macro",
+    "parent_path": "C:\\Users\\Curious Pengu\\Documents\\Apps\\dolphSol\\Radiance-Macro",
     "theme_path": "/data/settings/blue.json",
     "webhook_url": "https://discord.com/api/webhooks/...",
     "user_id": "1209735284988579861",
@@ -42,7 +42,8 @@
     "jester_exchange": "0",
     "aura_recording": "1",
     "aura_recording_minimum": "10000",
-    "aura_recording_keybind": "Alt_L + r",
+    "aura_recording_keybind": "t",
     "start_keybind": "F1",
-    "stop_keybind": "F2"
+    "stop_keybind": "F2",
+    "vip_mode": "1"
 }

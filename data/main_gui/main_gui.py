@@ -12,8 +12,8 @@ from customtkinter import *
 from tkinter import messagebox
 from PIL import ImageTk, Image
 import threading
-import keyboard
 import json
+from ahk import AHK
 
 
 CURRENT_VERSION = config.get_current_version()
@@ -24,6 +24,7 @@ MAX_WIDTH = 1000
 class MainWindow(CTk):
     def __init__(self):
         super().__init__()
+        self.ahk = AHK()
         self.bind_all("<Button-1>", self.focus_widget)
         self.config_data = config.read_config()
         self.title(f"Radiance Macro v{CURRENT_VERSION}")
@@ -71,8 +72,8 @@ class MainWindow(CTk):
         self.stop_button.grid(row=0, column=2, padx=4, pady=4)
 
         # TODO
-        self.bind_all(func=self.stop, sequence=self.convert_keybind(self.config_data["stop_keybind"]))
-        self.bind_all(func=self.start, sequence=self.convert_keybind(self.config_data["start_keybind"]))
+        self.ahk.add_hotkey(self.config_data["stop_keybind"], self.stop)
+        self.ahk.add_hotkey(self.config_data["start_keybind"], self.start)
 
         # FONTS
         h1 = CTkFont(DEFAULT_FONT_BOLD, size=20, weight="bold")
@@ -107,14 +108,9 @@ class MainWindow(CTk):
         enable_collect_items = CTkCheckBox(master=item_collection_frame, text="Enable Item Collection", variable=self.tk_var_list["collect_items"], onvalue="1", offvalue="0").grid(row=1, sticky="w", padx=5, pady=5)
         fps_30_patch = CTkCheckBox(master=item_collection_frame, text="30 FPS Path", variable=self.tk_var_list["30_fps_path"], onvalue="1", offvalue="0").grid(row=2, sticky="w", padx=5, pady=5)
         
-        spot_collection_frame = CTkFrame(master=item_collection_frame, fg_color=config.read_theme("CTkFrame")["fg_color"])
-
-        collect_item_spots_title = CTkLabel(master=spot_collection_frame, text="Collect Item Spots", font=h2).grid(row=0, padx=5, column=0, columnspan=8)
-        spot_collection_frame.grid(row=1, sticky="we", column=1, padx=(64, 5), pady=(5, 7), rowspan=2, ipady=5, ipadx=1)
-
-        CTkCheckBox(master=spot_collection_frame, text='1', width=45, variable=self.tk_var_list['collect_spot_1'], onvalue='1', offvalue='0').grid(row=1, column=0, sticky='e', padx=(5, 0))
-        for i in range(1, 8):
-            exec(f"CTkCheckBox(master=spot_collection_frame, text='{i + 1}', width=45, variable=self.tk_var_list['collect_spot_{i + 1}'], onvalue='1', offvalue='0').grid(row=1, column={i}, sticky='e')")
+        # CTkCheckBox(master=spot_collection_frame, text='1', width=45, variable=self.tk_var_list['collect_spot_1'], onvalue='1', offvalue='0').grid(row=1, column=0, sticky='e', padx=(5, 0))
+        # for i in range(1, 8):
+        #     exec(f"CTkCheckBox(master=spot_collection_frame, text='{i + 1}', width=45, variable=self.tk_var_list['collect_spot_{i + 1}'], onvalue='1', offvalue='0').grid(row=1, column={i}, sticky='e')")
 
         item_crafting_frame = CTkFrame(master=crafting_tab)
         item_crafting_frame.grid(row=0, column=0, padx=(1, 0))
@@ -163,7 +159,7 @@ class MainWindow(CTk):
         mari_frame.grid(row=0, column=1, sticky="n", padx=(6, 0))
         mari_title = CTkLabel(master=mari_frame, text="Mari Autobuy", font=h1).grid(row=0, padx=5)
         enable_mari_autobuy = CTkCheckBox(master=mari_frame, text="Enable Mari Autobuy", variable=self.tk_var_list['mari_autobuy'], onvalue="1", offvalue="0").grid(row=1, pady=5, padx=5, sticky="w")
-        mari_autobuy_settings = CTkButton(master=mari_frame, text="Mari Item Settings", command=self.open_mari_autobuy_settings, width=284).grid(row=3, padx=5, pady=5)
+        mari_autobuy_settings = CTkButton(master=mari_frame, text="Mari Item Settings", command=self.open_mari_autobuy_settings, width=284).grid(row=3, padx=5, pady=5) 
 
         jester_exchange_frame = CTkFrame(master=merchant_tab)
         jester_exchange_frame.grid(row=1, columnspan=2, sticky="w", pady=(6, 0), padx=(1, 0))
@@ -171,8 +167,13 @@ class MainWindow(CTk):
         enable_jester_exchange = CTkCheckBox(master=jester_exchange_frame, text="Enable Jester Exchange", width=586, variable=self.tk_var_list["jester_exchange"], onvalue="1", offvalue="0").grid(row=1, padx=5, pady=5, sticky="w")
         jester_exchange_items = CTkButton(master=jester_exchange_frame, text="Jester Exchange Items", width=586).grid(row=2, padx=5, pady=5)
 
+        settings_frame = CTkFrame(master=settings_tab)
+        settings_frame.grid(row=0, column=0, sticky="nw", padx=(1, 0))
+        general_title = CTkLabel(master=settings_frame, text="General", font=h1).grid(row=0, padx=5)
+        enable_vip = CTkCheckBox(master=settings_frame, text="VIP Mode", variable=self.tk_var_list["vip_mode"], onvalue="1", offvalue="0", width=285).grid(row=1, pady=5, padx=5, sticky="w")
+
         keybinds_frame = CTkFrame(master=settings_tab)
-        keybinds_frame.grid(row=0, sticky="nw", padx=(1, 0))
+        keybinds_frame.grid(row=0, column=1, sticky="nw", padx=(5, 0))
         keybinds_title = CTkLabel(master=keybinds_frame, text="Change Keybinds", font=h1).grid(row=1)
         self.start_keybind = CTkButton(master=keybinds_frame, text=f"Change Start Keybind ({self.config_data["start_keybind"]})", width=200, command=self.update_start_keybind)
         self.start_keybind.grid(row=2, padx=5, pady=5)
@@ -223,7 +224,7 @@ CATE"""
 
         logo_image_label = CTkLabel(master=credits_frame, image=logo_image, text="").grid(row=1, column=0, padx=6, pady=(0, 6))
         team_image_label = CTkLabel(master=credits_frame, image=team_logo_image, text="").grid(row=1, column=2, padx=6, pady=(0, 6))
-
+        self.ahk.start_hotkeys()
 
     def on_close(self):
         config.save_tk_list(self.tk_var_list)
@@ -232,11 +233,13 @@ CATE"""
     def start(self, keybind=""):
         config.save_tk_list(self.tk_var_list)
         config.save_config(self.config_data)
+        self.iconify()
         main_loop.start()
 
     def stop(self, keybind=""):
         config.save_tk_list(self.tk_var_list)
         config.save_config(self.config_data)
+        self.deiconify()
         main_loop.stop()
 
     def update_entry(self):
@@ -258,24 +261,24 @@ CATE"""
     
     def update_start_label(self):
         original_keybind = self.config_data["start_keybind"]
-        self.unbind_all(self.convert_keybind(original_keybind))
+        self.ahk.remove_hotkey(original_keybind)
         while original_keybind == self.config_data["start_keybind"]:
             sleep(0.1)
             pass
         self.start_keybind.configure(text=f"Change Start Keybind ({self.config_data["start_keybind"].upper()})")
         self.start_button.configure(text=f"Start ({self.config_data["start_keybind"].upper()})")        
-        self.bind_all(func=self.start, sequence=self.convert_keybind(self.config_data["start_keybind"]))
+        self.ahk.add_hotkey(self.config_data["start_keybind"], self.start)
         
 
     def update_stop_label(self):
         original_keybind = self.config_data["stop_keybind"]
-        self.unbind_all(self.convert_keybind(original_keybind))
+        self.ahk.remove_hotkey(original_keybind)
         while original_keybind == self.config_data["stop_keybind"]:
             sleep(0.1)
             pass
         self.stop_keybind.configure(text=f"Change Stop Keybind ({self.config_data["stop_keybind"].upper()})")
         self.stop_button.configure(text=f"Stop ({self.config_data["stop_keybind"].upper()})")
-        self.bind_all(func=self.stop, sequence=self.convert_keybind(self.config_data["stop_keybind"]))
+        self.ahk.add_hotkey(self.config_data["stop_keybind"], self.stop)
 
 
     def update_aura_recording_keybind(self):
@@ -375,9 +378,9 @@ CATE"""
         self.config_data = config.read_config()
         self.tk_var_list = config.generate_tk_list()
 
-    def convert_keybind(self, keybinds):
-        for keybind in keybinds.split(" + "):
-            final_keybind = "<"
-            final_keybind += f"{keybind}-"
-            final_keybind += ">"
-        return final_keybind
+    # def convert_keybind(self, keybinds):
+    #     for keybind in keybinds.split(" + "):
+    #         final_keybind = "<"
+    #         final_keybind += f"{keybind}-"
+    #         final_keybind += ">"
+    #     return final_keybind

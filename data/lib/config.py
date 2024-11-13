@@ -5,7 +5,7 @@ import ctypes
 import json
 
 
-ONLINE_CONFIG_URL = "https://raw.githubusercontent.com/noteab/dolphSol-Improvement-Macro/refs/heads/2.0-dev/data/settings/config.json"
+ONLINE_CONFIG_URL = "https://raw.githubusercontent.com/curiouspengu/Radiance-Macro/refs/heads/main/data/settings/config.json"
 config_path = ""
 
 def get_current_version():
