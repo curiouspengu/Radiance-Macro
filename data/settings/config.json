@@ -45,5 +45,6 @@
     "aura_recording_keybind": "t",
     "start_keybind": "F1",
     "stop_keybind": "F2",
-    "vip_mode": "1"
+    "vip_mode": "1",
+    "azerty_mode": "0"
 }

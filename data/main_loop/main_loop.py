@@ -5,7 +5,7 @@ try:
 except:
     ctypes.windll.user32.MessageBoxW(0, "Why the fuck are you running this file?\nWho told you to run this?", "Error", 0)
     exit(1)
-from data.lib import ahklib
+from data.paths import pathlib
 from data.lib import window
 from data.lib import recconect
 from ahk import AHK
@@ -23,7 +23,7 @@ def main_loop():
         if window.focus_roblox() == -1:
             # recconect
             pass
-        ahklib.reset()
+        pathlib.reset()
 
 def inventory_screenshots():
     pass
@@ -58,8 +58,8 @@ def start():
 
 def align_camera():
     window.get_roblox_window_pos(x:=[], y:=[], w:=[], h:=[])
-    ahklib.reset()
-    ahklib.click_menu_button(2)
+    pathlib.reset()
+    click_menu_button(2)
     sleep(0.1)
     ahk.mouse_move(381 * (w[0]/1920), 129 * (h[0]/1080))
     ahk.click()
@@ -70,3 +70,18 @@ def stop():
     running = False
     global main_procress
     main_procress.terminate()
+
+def click_menu_button(button_num):
+    window.get_roblox_window_pos(rx:=[], ry:=[], w:=[], h:=[])
+    menu_button_spacing = 54 * (h[0]/1080)
+    menu_button_width = 64 * (w[0]/1920)
+
+    start_x = 354 * (h[0]/1080)
+    start_y = 11 * (w[0]/1920)
+
+    ahk.mouse_move(x = start_y + (int(menu_button_width/2)), y = start_x + (menu_button_spacing * button_num))
+    ahk.click()
+
+
+def align():
+    pass

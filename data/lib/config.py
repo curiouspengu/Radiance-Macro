@@ -12,17 +12,17 @@ def get_current_version():
     return read_config()["version"]
 
 def read_config(key=""):
-    try:
-        with open(config_path) as config_file:
-            config_data = json.load(config_file)
-            if len(config_data) == 0:
-                ctypes.windll.user32.MessageBoxW(0, "CONFIG DATA NOT FOUND", "Error", 0)
-                exit(1)
-            if not key == "":
-                return config_data[key]
-            return config_data
-    except:
-        ctypes.windll.user32.MessageBoxW(0, "CONFIG DATA ERROR", "Error", 0)
+    # try:
+    with open(config_path) as config_file:
+        config_data = json.load(config_file)
+        if len(config_data) == 0:
+            ctypes.windll.user32.MessageBoxW(0, "CONFIG DATA NOT FOUND", "Error", 0)
+            exit(1)
+        if not key == "":
+            return config_data[key]
+        return config_data
+    # except:
+    #     ctypes.windll.user32.MessageBoxW(0, "CONFIG DATA ERROR!", "Error", 0)
 
 def read_remote():
     try:
