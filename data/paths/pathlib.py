@@ -30,8 +30,8 @@ def jump():
     press("space")
 
 def reset():
-    ahk.press("esc")
+    press("esc")
     sleep(0.1)
-    ahk.press("r")
+    press("r")
     sleep(0.1)
-    ahk.key_press("enter")
+    press("enter")

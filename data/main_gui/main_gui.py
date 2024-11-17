@@ -29,7 +29,7 @@ class MainWindow(CTk):
         self.config_data = config.read_config()
         self.title(f"Radiance Macro v{CURRENT_VERSION}")
         self.geometry("630x315x200x200")
-        # self.resizable(False, False)
+        self.resizable(False, False)
         self.grid_columnconfigure(0, weight=1)
         self.protocol("WM_DELETE_WINDOW", self.on_close)
 
@@ -74,6 +74,7 @@ class MainWindow(CTk):
         # TODO
         self.ahk.add_hotkey(self.config_data["stop_keybind"], self.stop)
         self.ahk.add_hotkey(self.config_data["start_keybind"], self.start)
+        self.ahk.add_hotkey("F3", self.restart)
 
         # FONTS
         h1 = CTkFont(DEFAULT_FONT_BOLD, size=20, weight="bold")
@@ -241,6 +242,11 @@ CATE"""
         config.save_config(self.config_data)
         self.deiconify()
         main_loop.stop()
+    
+    def restart(self, keybind=""):
+        os.execv(sys.executable, ['python', f'"{sys.argv[0]}"'])
+        self.on_close()
+        sys.exit()
 
     def update_entry(self):
         pass

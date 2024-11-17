@@ -57,17 +57,29 @@ def start():
     # main_procress.start()
 
 def align_camera():
-    window.get_roblox_window_pos(x:=[], y:=[], w:=[], h:=[])
+    window.get_roblox_window_pos(rx:=[], ry:=[], rw:=[], rh:=[])
     pathlib.reset()
     click_menu_button(2)
     sleep(0.1)
-    ahk.mouse_move(381 * (w[0]/1920), 129 * (h[0]/1080))
+    ahk.mouse_move(381 * (rw[0]/1920), 129 * (rh[0]/1080))
     ahk.click()
-    
+    # MouseClickDrag, R, rX + rW*0.20, rY + 44 + rH*0.05, rX + rW*0.20, rY + 400 + rH*0.05
+    sleep(0.1)
+    ahk.mouse_drag(button="R", from_position=[rx[0] + rw[0]*0.2, ry[0] + 44 + rh[0]*0.05], x=rx[0] + rw[0]*0.2, y=ry[0] + 400 + rh[0]*0.05, send_mode="Input", speed=1)
+    for i in range(50):
+        ahk.click(button="WU")
+        sleep(0.01)
+    for i in range(50):
+        ahk.click(button="WD")
+        sleep(0.01)
+
 
 def stop():
     global running
-    running = False
+    if running == True:
+        running = False
+    else:
+        return
     global main_procress
     main_procress.terminate()
 
@@ -81,6 +93,7 @@ def click_menu_button(button_num):
 
     ahk.mouse_move(x = start_y + (int(menu_button_width/2)), y = start_x + (menu_button_spacing * button_num))
     ahk.click()
+    
 
 
 def align():
