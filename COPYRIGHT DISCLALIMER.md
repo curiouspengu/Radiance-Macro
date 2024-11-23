@@ -47,6 +47,7 @@ The Company believes this constitutes a "fair use" of any such copyrighted mater
 
 If You wish to use copyrighted material from the Service for your own purposes that go beyond fair use, You must obtain permission from the copyright owner.
 
+Fair use law: https://en.wikipedia.org/wiki/Fair_use
 ## Views Expressed Disclaimer
 
 The Service may contain views and opinions which are those of the authors and do not necessarily reflect the official policy or position of any other author, agency, organization, employer or company, including the Company.
