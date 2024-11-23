@@ -1,6 +1,5 @@
 # Radiance Macro
-### Copyright Disclaimer: 
-### DON'T DOWNLOAD THE MACRO FROM THE MAIN PAGE. FOLLOW THE INSTALLATION SECTION PLEASE 😭😭😭
+### DON'T DOWNLOAD THE MACRO FROM THE MAIN PAGE. FOLLOW THE INSTALLATION SECTION PLEASE
  A macro for the Roblox game "Sol's RNG", including features such as obby completion and item collection, remote contorl, discord webhooks and more.
  
 ## Installation
