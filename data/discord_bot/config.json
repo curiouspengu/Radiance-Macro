@@ -1,0 +1,121 @@
+{
+    "token": "nil",
+    "coordinates": {
+        "inventory": [
+            45,
+            540
+        ],
+        "inventory_2": [
+            1242,
+            339
+        ],
+        "storage": [
+            38,
+            401
+        ],
+        "daily_quest_first": [
+            55,
+            596
+        ],
+        "daily_quest_second": [
+            1236,
+            337
+        ],
+        "screenshot_position": [
+            884,
+            166
+        ],
+        "aura_first": [
+            56,
+            415
+        ],
+        "aura_second": [
+            879,
+            365
+        ],
+        "aura_third": [
+            825,
+            436
+        ],
+        "aura_fourth": [
+            673,
+            635
+        ],
+        "statistics_start": [
+            8,
+            842
+        ],
+        "statistics_end": [
+            226,
+            1071
+        ],
+        "buy_storage_first": [
+            38,
+            401
+        ],
+        "buy_storage_second": [
+            632,
+            771
+        ],
+        "buy_storage_screenshot_start": [
+            489,
+            742
+        ],
+        "buy_storage_screenshot_end": [
+            759,
+            787
+        ],
+        "inventory_3": [
+            992,
+            371
+        ],
+        "inventory_4": [
+            859,
+            424
+        ],
+        "inventory_5": [
+            653,
+            576
+        ],
+        "inventorygear_1": [
+            942,
+            336
+        ],
+        "inventorygear_2": [
+            987,
+            376
+        ],
+        "inventorylgear_3": [
+            698,
+            497
+        ],
+        "inventorylgear_4": [
+            854,
+            434
+        ],
+        "inventorylgear_5": [
+            706,
+            488
+        ],
+        "inventoryrgear_3": [
+            539,
+            493
+        ],
+        "inventoryrgear_5": [
+            706,
+            488
+        ],
+        "statistics_region": [
+            8,
+            842,
+            218,
+            229
+        ],
+        "buy_storage_region": [
+            489,
+            742,
+            270,
+            45
+        ]
+    }
+}
