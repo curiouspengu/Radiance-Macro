@@ -28,4 +28,4 @@ steveonly1
 curiouspengu
 noteab
 
-Radiant Macro © 2024 by Radiant Team is licensed under Creative Commons Attribution-ShareAlike 4.0 International 
+Radiant Macro © 2024 by Radiant Team is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International 
