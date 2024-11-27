@@ -46,5 +46,7 @@
     "start_keybind": "F1",
     "stop_keybind": "F2",
     "vip_mode": "1",
-    "azerty_mode": "0"
+    "azerty_mode": "0",
+    "auto_reconnect": "0",
+    "ps_link": ""
 }

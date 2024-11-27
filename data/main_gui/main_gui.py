@@ -13,7 +13,7 @@ from tkinter import messagebox
 from PIL import ImageTk, Image
 import threading
 import json
-from ahk import AHK
+from data.lib.ahk import ahk
 
 
 CURRENT_VERSION = config.get_current_version()
@@ -24,7 +24,6 @@ MAX_WIDTH = 1000
 class MainWindow(CTk):
     def __init__(self):
         super().__init__()
-        self.ahk = AHK()
         self.bind_all("<Button-1>", self.focus_widget)
         self.config_data = config.read_config()
         self.title(f"Radiance Macro v{CURRENT_VERSION}")
@@ -72,9 +71,9 @@ class MainWindow(CTk):
         self.stop_button.grid(row=0, column=2, padx=4, pady=4)
 
         # TODO
-        self.ahk.add_hotkey(self.config_data["stop_keybind"], self.stop)
-        self.ahk.add_hotkey(self.config_data["start_keybind"], self.start)
-        self.ahk.add_hotkey("F3", self.restart)
+        ahk.add_hotkey(self.config_data["stop_keybind"], self.stop)
+        ahk.add_hotkey(self.config_data["start_keybind"], self.start)
+        ahk.add_hotkey("F3", self.restart)
 
         # FONTS
         h1 = CTkFont(DEFAULT_FONT_BOLD, size=20, weight="bold")
@@ -88,30 +87,41 @@ class MainWindow(CTk):
         do_obby_checkbox = CTkCheckBox(master=obby_frame, text="Do Obby (30% Luck Boost Every 2 Mins)", variable=self.tk_var_list["do_obby"], onvalue="1", offvalue="0").grid(row=2, column=1, padx=5, pady=5, stick="w")
         check_for_obby_buff_check_box = CTkCheckBox(master=obby_frame, text="Check for Obby Buff Effect", variable=self.tk_var_list["check_for_obby_buff"], onvalue="1", offvalue="0").grid(row=3, column=1, padx=5, pady=5, stick="w")
 
-        auto_equip_frame = CTkFrame(master=main_tab, width=200, height=30)
+        auto_equip_frame = CTkFrame(master=main_tab, width=200, height=31)
         auto_equip_frame.grid(row=0, column=1, stick="n", padx=(5, 0))
         auto_equip_title = CTkLabel(master=auto_equip_frame, text="Auto Equip", font=h1).grid(row=0, pady=(0, 3), columnspan=2)
 
         enable_auto_equip = CTkCheckBox(master=auto_equip_frame, text="Enable Auto Equip", variable=self.tk_var_list["auto_equip"], onvalue="1", offvalue="0").grid(row=1, pady=(1, 6), sticky="w", padx=(5, 4))
-        self.auto_equip_aura = CTkEntry(master=auto_equip_frame, placeholder_text="Aura", width=329)
+        self.auto_equip_aura = CTkEntry(master=auto_equip_frame, placeholder_text="Aura", width=330)
         self.auto_equip_aura.bind(command=self.update_auto_equip_aura, sequence="<Return>")
         if not self.config_data["auto_equip_aura"] == "":
             self.auto_equip_aura.insert(0, self.config_data["auto_equip_aura"])
             
         
-        self.auto_equip_aura.grid(row=2, column=0, padx=5, sticky="e", pady=(0, 5))
+        self.auto_equip_aura.grid(row=2, column=0, padx=5, sticky="e", pady=(0, 6))
 
-        item_collection_frame = CTkFrame(master=main_tab)
-        item_collection_frame.grid(row=1, pady=(6, 0), sticky="we", columnspan=2, column=0, padx=(1, 0))
+        paths_frame = CTkFrame(master=main_tab)
+        paths_frame.grid(row=1, pady=(6, 0), column=0, padx=(1, 0))
         
-        item_collection_title = CTkLabel(master=item_collection_frame, text="Collect Items", font=h1).grid(row=0, padx=5, columnspan=2)
+        paths_title = CTkLabel(master=paths_frame, text="Paths", font=h1, width=240).grid(row=0, padx=5)
 
-        enable_collect_items = CTkCheckBox(master=item_collection_frame, text="Enable Item Collection", variable=self.tk_var_list["collect_items"], onvalue="1", offvalue="0").grid(row=1, sticky="w", padx=5, pady=5)
-        fps_30_patch = CTkCheckBox(master=item_collection_frame, text="30 FPS Path", variable=self.tk_var_list["30_fps_path"], onvalue="1", offvalue="0").grid(row=2, sticky="w", padx=5, pady=5)
+        enable_collect_items = CTkCheckBox(master=paths_frame, text="Enable Item Collection", variable=self.tk_var_list["collect_items"], onvalue="1", offvalue="0").grid(row=1, sticky="w", padx=5, pady=5)
+        autograil = CTkCheckBox(master=paths_frame, text="Auto grail", variable=self.tk_var_list["30_fps_path"], onvalue="1", offvalue="0").grid(row=2, sticky="w", padx=5, pady=5)
         
         # CTkCheckBox(master=spot_collection_frame, text='1', width=45, variable=self.tk_var_list['collect_spot_1'], onvalue='1', offvalue='0').grid(row=1, column=0, sticky='e', padx=(5, 0))
         # for i in range(1, 8):
         #     exec(f"CTkCheckBox(master=spot_collection_frame, text='{i + 1}', width=45, variable=self.tk_var_list['collect_spot_{i + 1}'], onvalue='1', offvalue='0').grid(row=1, column={i}, sticky='e')")
+
+        reconnect_frame = CTkFrame(master=main_tab, width=200, height=31)
+        reconnect_frame.grid(row=1, column=1, stick="n", padx=(5, 0), pady=(6, 0))
+        reconnect_title = CTkLabel(master=reconnect_frame, text="Auto reconnect", font=h1).grid(row=0, pady=(0, 3))
+    
+        enable_reconnect = CTkCheckBox(master=reconnect_frame, text="Enable Auto reconnect", variable=self.tk_var_list["auto_reconnect"], onvalue="1", offvalue="0").grid(row=1, pady=(1, 6), sticky="w", padx=(5, 4))
+        self.ps_link = CTkEntry(master=reconnect_frame, placeholder_text="Private Server Link", width=330)
+        self.ps_link.bind(command=self.update_auto_reconnect_ps_link, sequence="<Return>")
+        if not self.config_data["ps_link"] == "":
+            self.ps_link.insert(0, self.config_data["ps_link"])
+        self.ps_link.grid(row=2, column=0, padx=5, sticky="e", pady=(0, 6))
 
         item_crafting_frame = CTkFrame(master=crafting_tab)
         item_crafting_frame.grid(row=0, column=0, padx=(1, 0))
@@ -225,7 +235,7 @@ CATE"""
 
         logo_image_label = CTkLabel(master=credits_frame, image=logo_image, text="").grid(row=1, column=0, padx=6, pady=(0, 6))
         team_image_label = CTkLabel(master=credits_frame, image=team_logo_image, text="").grid(row=1, column=2, padx=6, pady=(0, 6))
-        self.ahk.start_hotkeys()
+        ahk.start_hotkeys()
 
     def on_close(self):
         config.save_tk_list(self.tk_var_list)
@@ -234,13 +244,15 @@ CATE"""
     def start(self, keybind=""):
         config.save_tk_list(self.tk_var_list)
         config.save_config(self.config_data)
-        self.iconify()
+        if main_loop.running == False:
+            self.iconify()
         main_loop.start()
 
     def stop(self, keybind=""):
         config.save_tk_list(self.tk_var_list)
         config.save_config(self.config_data)
-        self.deiconify()
+        if main_loop.running == True:
+            self.deiconify()
         main_loop.stop()
     
     def restart(self, keybind=""):
@@ -267,24 +279,24 @@ CATE"""
     
     def update_start_label(self):
         original_keybind = self.config_data["start_keybind"]
-        self.ahk.remove_hotkey(original_keybind)
+        ahk.remove_hotkey(original_keybind)
         while original_keybind == self.config_data["start_keybind"]:
             sleep(0.1)
             pass
         self.start_keybind.configure(text=f"Change Start Keybind ({self.config_data["start_keybind"].upper()})")
         self.start_button.configure(text=f"Start ({self.config_data["start_keybind"].upper()})")        
-        self.ahk.add_hotkey(self.config_data["start_keybind"], self.start)
+        ahk.add_hotkey(self.config_data["start_keybind"], self.start)
         
 
     def update_stop_label(self):
         original_keybind = self.config_data["stop_keybind"]
-        self.ahk.remove_hotkey(original_keybind)
+        ahk.remove_hotkey(original_keybind)
         while original_keybind == self.config_data["stop_keybind"]:
             sleep(0.1)
             pass
         self.stop_keybind.configure(text=f"Change Stop Keybind ({self.config_data["stop_keybind"].upper()})")
         self.stop_button.configure(text=f"Stop ({self.config_data["stop_keybind"].upper()})")
-        self.ahk.add_hotkey(self.config_data["stop_keybind"], self.stop)
+        ahk.add_hotkey(self.config_data["stop_keybind"], self.stop)
 
 
     def update_aura_recording_keybind(self):
@@ -353,6 +365,17 @@ CATE"""
             config.save_config(self.config_data)
         else:
             messagebox.showwarning(title="Warning", message="Enable Auto Equip first!")
+    
+    def update_auto_reconnect_ps_link(self, keypress_event):
+        if self.tk_var_list["auto_reconnect"].get() == "1":
+            config.save_tk_list(self.tk_var_list)
+            self.config_data = config.read_config()
+            ps_link = self.ps_link.get()
+            # TODO CHECK PS LINK PLS
+            self.config_data["ps_link"] = ps_link
+            config.save_config(self.config_data)
+        else:
+            messagebox.showwarning(title="Warning", message="Enable Auto Reconnect first!")
 
     def update_theme(self):
         selected_theme = self.theme_var.get()

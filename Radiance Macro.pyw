@@ -46,10 +46,11 @@ def create_main_gui(gui):
     gui.mainloop()
 
 def set_path():
-    try:
-        from data.lib import config
-    except ImportError:
-        ctypes.windll.user32.MessageBoxW(0, "CONFIG FILE NOT FOUND", "Error", 0)
+    from data.lib import config
+    # try:
+    #     from data.lib import config
+    # except ImportError:
+    #     ctypes.windll.user32.MessageBoxW(0, "CONFIG FILE NOT FOUND", "Error", 0)
     config.set_path(pathlib.Path(__file__).parent.resolve())
     parent_path = config.read_config()
     parent_path["parent_path"] = str(pathlib.Path(__file__).parent.resolve())
@@ -65,13 +66,9 @@ def main():
     #         json.dump({"installed": True}, f)
     set_path()
     run_update_checker()
-    try:
-        from data.main_gui import main_gui
-    except ImportError:
-        ctypes.windll.user32.MessageBoxW(0, "MAIN GUI NOT FOUND", "Error", 0)
+    from data.main_gui import main_gui
 
     gui = main_gui.MainWindow()
-
     create_main_gui(gui)
 
 

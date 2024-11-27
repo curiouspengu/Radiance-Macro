@@ -9,6 +9,7 @@ from ahk import AHK
 import ctypes
 import asyncio
 import aiohttp
+import pathlib
 
 # Initialize AHK for automation
 ahk = AHK()
@@ -18,8 +19,8 @@ intents = discord.Intents.default()
 intents.message_content = True
 
 # Path to config.json for dynamic path handling
-installer_dir = os.path.join("C:", os.sep, "installer")
-config_path = os.path.join(installer_dir, "config.json")
+installer_dir = str(pathlib.Path(__file__).parent.resolve())
+config_path = os.path.join(installer_dir, "discord_bot_config.json")
 
 # Ensure installer directory exists
 if not os.path.exists(installer_dir):

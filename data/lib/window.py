@@ -1,5 +1,5 @@
 import win32gui
-
+from data.lib.ahk import ahk
 def windowEnumerationHandler(hwnd, top_windows):
     top_windows.append((hwnd, win32gui.GetWindowText(hwnd)))
 
@@ -18,14 +18,31 @@ def focus_roblox():
     win32gui.ShowWindow(roblox_hwnd, 5)
     win32gui.SetForegroundWindow(roblox_hwnd)
 
-def get_roblox_window_pos(x: list,y: list,w: list,h: list, hwnd=None):
-    # Passing by reference
-    if not hwnd:
-        hwnd = get_roblox_HWND()
-    if hwnd == -1:
-        return -1
-    rect = win32gui.GetWindowRect(hwnd)
-    x.append(rect[0])
-    y.append(rect[1])
-    w.append(rect[2] - x[0])
-    h.append(rect[3] - y[0])
+class Position():
+    def __init__(self):
+        super().__init__()
+        self.x = 0
+        self.y = 0
+        self.width = 0
+        self.height = 0
+
+
+def get_roblox_window_pos():
+    position = ahk.win_get_position(title=win32gui.GetWindowText(get_roblox_HWND()))
+    if position.x == -8 and position.y == -8:
+        position1 = Position()
+        position1.x = 0
+        position1.y = 23
+        position1.width = position.width - 16
+        position1.height = position.height - 24
+        print(position.x)
+        print(position.y)
+        print(position.width)
+        print(position.height)
+        print()
+        print(position1.x)
+        print(position1.y)
+        print(position1.width)
+        print(position1.height)
+        return position1
+    return position
