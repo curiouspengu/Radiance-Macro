@@ -23,9 +23,14 @@ Radiance Macro has a couple of different features it is capable of. These includ
  - Automatic Collection Calibration
  - Summaries, after each macro session
 
-### Radiance Team
-steveonly1
-curiouspengu
-noteab
-
+# Radiant Team
+### Owners
+- **Curious Pengu** | _Pathing Development, Radiance Macro Development, Genesis Stat Tracker, Lunaria Pathing System_
+- **steveonly1** | _Radiance Macro Development_
+- **noteab** | _dSIM Development_
+### Developers
+- **TheEndyy** | _Roll detection_
+- **bored man**
+### Graphical Designer
+- **Cate**
 Radiant Macro © 2024 by Radiant Team is licensed under Creative Commons Attribution-ShareAlike 4.0 International 
