@@ -33,4 +33,5 @@ Radiance Macro has a couple of different features it is capable of. These includ
 - **bored man**
 ### Graphical Designer
 - **Cate**
+
 Radiance Macro © 2024 by Radiant Team is licensed under Creative Commons Attribution-ShareAlike 4.0 International 
