@@ -4,9 +4,10 @@ Discord, for help, dev updates and fun stuff: https://discord.gg/radiant-team
  
 ## Installation
   - Go to Releases and download and run installer.bat
+  - Run Radiance Macro.pyw
 
 ## Features
-Radiance Macro has a couple of different features it is capable of. These include:
+Radiance Macro has a couple of different features that it will have. These include:
  - Automatic Obby Completion, with an option to check if it is completed in case it has to be redone
  - Automatic Item Collection, with options to set which spots to collect from if sharing a server
  - Automatic Aura Equipping, so you can always have an aura equipped without an animation to ensure the macro performs well
