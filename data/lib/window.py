@@ -1,5 +1,14 @@
+from data.lib.auto import ahk
+
 import win32gui
-from data.lib.ahk import ahk
+class Position():
+    def __init__(self):
+        super().__init__()
+        self.x = 0
+        self.y = 0
+        self.width = 0
+        self.height = 0
+
 def windowEnumerationHandler(hwnd, top_windows):
     top_windows.append((hwnd, win32gui.GetWindowText(hwnd)))
 
@@ -11,20 +20,23 @@ def get_roblox_HWND():
             return i[0]
     return -1
 
+def check_radiance_windows():
+    top_windows = []
+    win32gui.EnumWindows(windowEnumerationHandler, top_windows)
+    count = 0
+    for i in top_windows:
+        if "radiance" in i[1].lower():
+            count += 1
+    if count > 1:
+        return True
+    return False
+
 def focus_roblox():
     roblox_hwnd = get_roblox_HWND()
     if roblox_hwnd == -1:
         return -1
     win32gui.ShowWindow(roblox_hwnd, 5)
     win32gui.SetForegroundWindow(roblox_hwnd)
-
-class Position():
-    def __init__(self):
-        super().__init__()
-        self.x = 0
-        self.y = 0
-        self.width = 0
-        self.height = 0
 
 
 def get_roblox_window_pos():
@@ -35,14 +47,5 @@ def get_roblox_window_pos():
         position1.y = 23
         position1.width = position.width - 16
         position1.height = position.height - 24
-        print(position.x)
-        print(position.y)
-        print(position.width)
-        print(position.height)
-        print()
-        print(position1.x)
-        print(position1.y)
-        print(position1.width)
-        print(position1.height)
         return position1
     return position

@@ -1,52 +1,203 @@
 {
-    "version": "2.1-alpha",
-    "latest_beta_version": "2.0-alpha",
-    "parent_path": "C:\\Users\\Curious Pengu\\Documents\\Apps\\dolphSol\\Radiance-Macro",
-    "theme_path": "/data/settings/blue.json",
-    "webhook_url": "https://discord.com/api/webhooks/...",
-    "user_id": "1209735284988579861",
-    "notify_mari": "1",
-    "notify_jester": "0",
-    "mari_item": "Some Item",
+    "version": "2.0-beta.1",
+    "latest_beta_version": "2.0-beta.1",
+    "collect_items": "0",
+    "ps_link": "",
+    "ui_navigation_key": "\\",
+    "paths": {
+        "theme": "Monodim"
+    },
+    "themes": {
+        "Monodim": "/data/settings/themes/monodim.json",
+        "Monodim Light": "/data/settings/themes/monodim_light.json",
+        "Monokai": "/data/settings/themes/monokai.json",
+        "Midnight Cyan": "/data/settings/themes/midnight_cyan.json",
+        "Midnight White": "/data/settings/themes/midnight_while.json",
+        "Midnight Yellow": "/data/settings/themes/midnight_green.json",
+        "Obsidian Noir": "/data/settings/themes/obsidian_noir.json",
+        "Evegreen": "/data/settings/themes/evergreen.json",
+        "Dark Default Blue": "/data/settings/themes/ddb.json"
+    },
+    "discord": {
+        "user_id": "1209735284988579861",
+        "bot": {
+            "enabled": "0",
+            "bot_token": "YOUR_BOT_TOKEN"
+        },
+        "webhook": {
+            "enabled": "0",
+            "url": "https://discord.com/api/webhooks/...",
+            "post_glitch_biome": "0",
+            "post_jester": "0",
+            "post_mari": "0"
+        }
+    },
+    "obby": {
+        "enabled": "0",
+        "check_for_buff": "0"
+    },
+    "auto_grail": {
+        "enabled": "0"
+    },
+    "auto_equip": {
+        "enabled": "0",
+        "aura": "Quartz"
+    },
+    "item_crafting": {
+        "enabled": "0"
+    },
+    "cycle_auto_add": {
+        "enabled": "0"
+    },
+    "aura_recording": {
+        "enabled": "0",
+        "minimum": "10000",
+        "keybind": "t"
+    },
+    "system_keybinds": {
+        "start": "f1",
+        "stop": "F2"
+    },
+    "settings": {
+        "vip_mode": "1",
+        "vip+_mode": "0",
+        "azerty_mode": "0",
+        "sleep": "0.05"
+    },
+    "auto_reconnect": {
+        "enabled": "0"
+    },
+    "default_actions": {
+        "align_camera": "https://raw.githubusercontent.com/curiouspengu/Radiance-Actions/refs/heads/main/align_camera.py",
+        "click_menu_button": "https://raw.githubusercontent.com/curiouspengu/Radiance-Actions/refs/heads/main/click_menu_button.py",
+        "potion_path": "https://raw.githubusercontent.com/curiouspengu/Radiance-Actions/refs/heads/main/potion_path.py",
+        "craft_potion": "https://raw.githubusercontent.com/curiouspengu/Radiance-Actions/refs/heads/main/craft_potion.py"
+    },
+    "actions": {
+        "align_camera": "https://raw.githubusercontent.com/curiouspengu/Radiance-Actions/refs/heads/main/align_camera.py",
+        "click_menu_button": "https://raw.githubusercontent.com/curiouspengu/Radiance-Actions/refs/heads/main/click_menu_button.py",
+        "potion_path": "https://raw.githubusercontent.com/curiouspengu/Radiance-Actions/refs/heads/main/potion_path.py",
+        "craft_potion": "https://raw.githubusercontent.com/curiouspengu/Radiance-Actions/refs/heads/main/craft_potion.py"
+    },
+    "potion_crafting": {
+        "interval": "20",
+        "temporary_auto_add": "1",
+        "current_temporary_auto_add": "Heavenly Potion II",
+        "enabled": "1",
+        "options": {
+            "Fortune Potion I": {
+                "enabled": "1",
+                "index": "1",
+                "max_ingredient": "5",
+                "ingredients": [
+                    "5",
+                    "1",
+                    "5",
+                    "1"
+                ]
+            },
+            "Fortune Potion II": {
+                "enabled": "1",
+                "index": "2",
+                "max_ingredient": "10",
+                "ingredients": [
+                    "1",
+                    "10",
+                    "5",
+                    "10",
+                    "2"
+                ]
+            },
+            "Fortune Potion III": {
+                "enabled": "0",
+                "index": "3",
+                "max_ingredient": "15",
+                "ingredients": [
+                    "1",
+                    "15",
+                    "10",
+                    "15",
+                    "5"
+                ]
+            },
+            "Haste Potion I": {
+                "enabled": "0",
+                "index": "4",
+                "max_ingredient": "10",
+                "ingredients": [
+                    "10",
+                    "5",
+                    "10",
+                    "1"
+                ]
+            },
+            "Haste Potion II": {
+                "enabled": "0",
+                "index": "5",
+                "max_ingredient": "15",
+                "ingredients": [
+                    "1",
+                    "10",
+                    "10",
+                    "15",
+                    "2"
+                ]
+            },
+            "Haste Potion III": {
+                "enabled": "0",
+                "index": "6",
+                "max_ingredient": "25",
+                "ingredients": [
+                    "1",
+                    "20",
+                    "15",
+                    "25",
+                    "4"
+                ]
+            },
+            "Heavenly Potion I": {
+                "enabled": "0",
+                "index": "7",
+                "max_ingredient": "100",
+                "ingredients": [
+                    "100",
+                    "50",
+                    "20",
+                    "1"
+                ]
+            },
+            "Heavenly Potion II": {
+                "enabled": "1",
+                "index": "8",
+                "max_ingredient": "125",
+                "ingredients": [
+                    "2",
+                    "125",
+                    "75",
+                    "50",
+                    "1"
+                ]
+            },
+            "Warp Potion": {
+                "enabled": "0",
+                "index": "9",
+                "max_ingredient": "1000",
+                "ingredients": [
+                    "1",
+                    "5",
+                    "7",
+                    "100",
+                    "200",
+                    "1000"
+                ]
+            }
+        }
+    },
     "quantity": "10",
     "auto_buy_items": "1",
     "item_scheduler_item": "merchant_teleporter",
     "item_scheduler_quantity": "1",
-    "bot_token": "YOUR_BOT_TOKEN",
-    "dark_mode": "1",
-    "vibrant_mode": "0",
-    "do_obby": "0",
-    "check_for_obby_buff": "0",
-    "auto_equip": "1",
-    "auto_equip_aura": "Quartz",
-    "collect_items": "1",
-    "30_fps_path": "0",
-    "collect_spot_1": "1",
-    "collect_spot_2": "1",
-    "collect_spot_3": "1",
-    "collect_spot_4": "1",
-    "collect_spot_5": "1",
-    "collect_spot_6": "1",
-    "collect_spot_7": "1",
-    "collect_spot_8": "0",
-    "automatic_item_crafting": "0",
-    "automatic_potion_crafting": "0",
-    "cycle_auto_add": "1",
-    "discord_webhook": "0",
-    "discord_bot": "0",
-    "post_glitch_biome": "0",
-    "post_jester": "0",
-    "post_mari": "0",
     "jester_autobuy": "0",
     "mari_autobuy": "0",
-    "jester_exchange": "0",
-    "aura_recording": "1",
-    "aura_recording_minimum": "10000",
-    "aura_recording_keybind": "t",
-    "start_keybind": "F1",
-    "stop_keybind": "F2",
-    "vip_mode": "1",
-    "azerty_mode": "0",
-    "auto_reconnect": "0",
-    "ps_link": ""
+    "jester_exchange": "0"
 }

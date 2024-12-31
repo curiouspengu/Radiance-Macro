@@ -1,3 +1,5 @@
+# Radiance Macro © 2024 by Radiant Team is licensed under Creative Commons Attribution-ShareAlike 4.0 International
+
 import os
 import subprocess
 import sys
@@ -8,22 +10,6 @@ import threading
 
 sys.dont_write_bytecode = True
 sys.path.append(pathlib.Path(__file__).parent.resolve())
-
-# Define required packages
-REQUIRED_MODULES = ['customtkinter', 'easyocr', 'py-cord', "PIL", "pywin32"]
-
-def install_module(module):
-    """Install a Python module using pip."""
-    subprocess.check_call([sys.executable, '-m', 'pip', 'install', module])
-
-def check_and_install_modules():
-    """Check and install required modules."""
-    for module in REQUIRED_MODULES:
-        try:
-            __import__(module)
-        except ImportError:
-            print(f"Installing {module}...")
-            install_module(module)
 
 def download_easyocr_model():
     """Run a basic EasyOCR script to download the recognition model."""
@@ -40,21 +26,17 @@ def run_update_checker():
         ctypes.windll.user32.MessageBoxW(0, "UPDATE CHECKER NOT FOUND", "Error", 0)
     update_checker.check_for_updates()
     
-
 def create_main_gui(gui):
     """Run the main GUI script."""
     gui.mainloop()
 
 def set_path():
-    from data.lib import config
     # try:
     #     from data.lib import config
     # except ImportError:
     #     ctypes.windll.user32.MessageBoxW(0, "CONFIG FILE NOT FOUND", "Error", 0)
-    config.set_path(pathlib.Path(__file__).parent.resolve())
-    parent_path = config.read_config()
-    parent_path["parent_path"] = str(pathlib.Path(__file__).parent.resolve())
-    config.save_config(parent_path)
+    with open("path.txt", "w") as file:
+        file.write(str(pathlib.Path(__file__).parent.resolve()))
 
 def main():
     # check_and_install_modules()
@@ -66,8 +48,13 @@ def main():
     #         json.dump({"installed": True}, f)
     set_path()
     run_update_checker()
+    from data.lib import config
     from data.main_gui import main_gui
-
+    from data.lib import window
+    version = config.get_current_version()
+    if window.check_radiance_windows() == True and not ("beta" in version or "alpha" in version):
+        if ctypes.windll.user32.MessageBoxW(0, "Radiance Already Open!\nDo you wish to continue?", "Warning", 4) == 7:
+            quit()
     gui = main_gui.MainWindow()
     create_main_gui(gui)
 

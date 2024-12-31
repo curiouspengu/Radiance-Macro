@@ -1,8 +1,8 @@
 import os
 import json
-import requests
 from data.lib import config
 
+import requests
 # Send a message via the webhook
 def send_webhook_message(webhook_url, user_id, message="Hello from Webhook!"):
     data = {

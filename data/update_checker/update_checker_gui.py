@@ -1,5 +1,6 @@
-from customtkinter import *
 import webbrowser
+
+from customtkinter import *
 
 DEFAULT_FONT = "Segoe UI"
 DEFAULT_FONT_BOLD = "Segoe UI Semibold"
@@ -7,10 +8,17 @@ DEFAULT_FONT_BOLD = "Segoe UI Semibold"
 class UpdateWindow(CTk):
     def __init__(self, update, is_beta, current_version="", latest_version=""):
         super().__init__()
+        try:
+            from data.lib import config
+            self.after(196, lambda: self.wm_iconbitmap(f"{config.parent_path()}/data/images/tray_radiant.ico"))
+        except:
+            pass
         self.geometry("500x160")
         h2 = CTkFont(DEFAULT_FONT, size=17)
         self.resizable(False, False)
-
+        set_default_color_theme(config.theme_path())
+        self.configure(fg_color=config.read_theme("CTk")["fg_color"])
+        
         if update == True:
             self.title("You can update!")
 

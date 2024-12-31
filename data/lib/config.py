@@ -1,12 +1,16 @@
-from customtkinter import *
-from PIL import Image, ImageDraw
-import requests
 import ctypes
 import json
 
+from customtkinter import *
+from PIL import Image, ImageDraw
+
+import requests
 
 ONLINE_CONFIG_URL = "https://raw.githubusercontent.com/curiouspengu/Radiance-Macro/refs/heads/main/data/settings/config.json"
-config_path = ""
+
+with open("path.txt", "r") as file:
+    config_path = f"{file.read()}\\data\\settings\\config.json"
+config_data = None
 
 def get_current_version():
     return read_config()["version"]
@@ -14,7 +18,8 @@ def get_current_version():
 def read_config(key=""):
     # try:
     with open(config_path) as config_file:
-        config_data = json.load(config_file)
+        config_data = config_file.read()
+        config_data = json.loads(config_data)
         if len(config_data) == 0:
             ctypes.windll.user32.MessageBoxW(0, "CONFIG DATA NOT FOUND", "Error", 0)
             exit(1)
@@ -34,29 +39,68 @@ def read_remote():
     except:
         ctypes.windll.user32.MessageBoxW(0, "ONLINE URL NOT FOUND. CANNOT RUN UPDATE CHECKER", "Error", 0)
 
-def save_config(config_data):
+def save_config(config_data_p):
+    global config_data
     with open(config_path, 'w') as config_file:
-        json.dump(config_data, config_file, indent=4)
+        json.dump(config_data_p, config_file, indent=4)
+    config_data = read_config()
+
+def iterate_generate_list(json_object, var_list):
+    for i in range(len(json_object)):
+        if type(json_object[i]) == dict:
+            var_list[i] = {}
+            iterate_generate_dict(json_object[i], var_list[i])
+        elif type(json_object[i]) == list:
+            var_list[i] = []
+            iterate_generate_list(json_object[i], var_list[i])
+        else:
+            var_list.append(StringVar(value=json_object[i]))
+
+def iterate_generate_dict(json_object, var_list):
+    for key in json_object:
+        if type(json_object[key]) == dict:
+            var_list[key] = {}
+            iterate_generate_dict(json_object[key], var_list[key])
+        elif type(json_object[key]) == list:
+            var_list[key] = []
+            iterate_generate_list(json_object[key], var_list[key])
+        else:
+            var_list[key] = StringVar(value=json_object[key])
 
 def generate_tk_list():
     config_data = read_config()
     tk_var_list = {}
-    for key in config_data:
-        tk_var_list[key] = StringVar(value=config_data[key])
+    iterate_generate_dict(config_data, tk_var_list)
     return tk_var_list
+
+def iterate_save_dict(json_object, var_list):
+    for key in json_object:
+        if type(var_list[key]) == dict:
+            iterate_save_dict(json_object[key], var_list[key])
+        elif type(var_list[key]) == list:
+            iterate_save_list(json_object[key], var_list[key])
+        elif type(var_list[key]) == str:
+            json_object[key] = var_list[key]
+        else:
+            json_object[key] = var_list[key].get()
+
+def iterate_save_list(json_object, var_list):
+    for i in range(len(var_list)):
+        if type(var_list[i]) == dict:
+            iterate_save_dict(json_object[i], var_list[i])
+        elif type(var_list[i]) == list:
+            iterate_save_list(json_object[i], var_list[i])
+        else:
+            json_object[i] = var_list[i].get()
 
 def save_tk_list(tk_var_list):
     config_data = read_config()
-    for key in tk_var_list:
-        config_data[key] = tk_var_list[key].get()
+    iterate_save_dict(config_data, tk_var_list)
     save_config(config_data)
 
-def set_path(path):
-    global config_path
-    config_path = f"{path}/data/settings/config.json"
-
 def parent_path():
-    return read_config("parent_path")
+    with open("path.txt", "r") as file:
+        return file.read()
 
 def round_corners(im, rad):
     circle = Image.new('L', (rad * 2, rad * 2), 0)
@@ -72,10 +116,13 @@ def round_corners(im, rad):
     return im
 
 def theme_path():
-    return read_config()["theme_path"]
+    if "/" in config_data["paths"]["theme"]:
+        return config_data["paths"]["theme"]
+    else:
+        return parent_path() + config_data["themes"][config_data["paths"]["theme"]]
 
 def read_theme(key=""):
-    with open(f"{parent_path()}{theme_path()}") as theme_file:
+    with open(theme_path()) as theme_file:
         theme_data = json.load(theme_file)
         if len(theme_data) == 0:
             ctypes.windll.user32.MessageBoxW(0, "THEME FILE NOT FOUND", "Error", 0)
@@ -101,3 +148,5 @@ def save_theme_path(path):
 
 def convert_to_ahk():
     pass
+
+config_data = read_config()

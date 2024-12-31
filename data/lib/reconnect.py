@@ -1,7 +1,9 @@
+# TODO
+from time import sleep
+
 from data.lib import window
 from data.lib import config
-from time import sleep
-from data.lib.ahk import ahk
+
 import win32gui
 
 def check_reconnect(ref_main_process):
@@ -16,6 +18,6 @@ def do_reconnect(ref_main_process = ""):
     if not ref_main_process == "":
         ref_main_process[0].terminate()
     sleep(1)
-    ahk.win_close(title=win32gui.GetWindowText(window.get_roblox_HWND()))
-    ahk.run_script(f"Run roblox://placeID=15532962292&linkCode={config.read_config("ps_link")}")
+    # ahk.win_close(title=win32gui.GetWindowText(window.get_roblox_HWND()))
+    # ahk.run_script(f"Run roblox://placeID=15532962292&linkCode={config.read_config("ps_link")}")
 

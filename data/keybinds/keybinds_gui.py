@@ -1,13 +1,15 @@
-from customtkinter import *
 from data.lib import config
 from data.main_gui import main_gui
 
+from customtkinter import *
+from pynput import keyboard
+from PIL import ImageTk
+
 DEFAULT_FONT_BOLD = "Segoe UI Semibold"
-readable_keybinds = config.read_json("/data/keybinds/readable_keybinds.json")
-ahk_keybind_dict = config.read_json("/data/lib/ahk_keybinds_dict.json")
 main_window = None
 
 keybind = ""
+global_parent_config = ""
 global_config_key = ""
 window = None
 count = 0
@@ -15,6 +17,7 @@ count = 0
 class KeybindsWindow(CTkToplevel):
     def __init__(self, feature):
         super().__init__()
+        self.after(196, lambda: self.wm_iconbitmap(f"{config.parent_path()}/data/images/tray_radiant.ico"))
         
         self.grab_set()
         self.geometry("350x150")
@@ -22,6 +25,12 @@ class KeybindsWindow(CTkToplevel):
         # self.resizable(False, False)
         self.protocol("WM_DELETE_WINDOW", self.on_close)
         self.configure(fg_color=config.read_theme("CTkFrame")["fg_color"])
+
+        set_default_color_theme(f'{config.config_data["paths"]["parent_path"]}{config.theme_path()}')
+
+        self.iconpath = ImageTk.PhotoImage(file=f"{config.parent_path()}/data/images/tray_radiant.png")
+        self.wm_iconbitmap()
+        self.iconphoto(False, self.iconpath)
 
         h1 = CTkFont(DEFAULT_FONT_BOLD, size=20, weight="bold")
 
@@ -33,7 +42,10 @@ class KeybindsWindow(CTkToplevel):
         clear_button = CTkButton(master=keybind_frame, text="Clear", command=self.clear_keybind).grid(row=1, column=0, padx=5, pady=5)
         save_button = CTkButton(master=keybind_frame, text="Save", command=save_keybinds).grid(row=1, column=1, padx=5, pady=5)
         
-        self.bind("<KeyPress>", self.append)
+        listener = keyboard.Listener(
+            on_press=self.append)
+        listener.start()
+        
 
     def focus_window(self, event):
         try:
@@ -54,37 +66,40 @@ class KeybindsWindow(CTkToplevel):
         keybind = ""
         self.keybind_label.configure(text="Enter Keybind")
     
-    def append(self, keypress):
+    def append(self, key):
         global count
         global keybind
-        global readable_keybinds
-        global ahk_keybind_dict
 
-        keypress_event = keypress.keysym
-        
-        if keypress_event in ahk_keybind_dict:
-            keypress_event = ahk_keybind_dict[keypress_event]
+        try:
+            keypress_event = key.char
+        except AttributeError:
+            keypress_event = key
+        keypress_event = str(keypress_event).replace("Key.", "")
     
-        if not keypress_event in keybind.split(" + "):
+        if not keypress_event in keybind.split("+"):
             if count > 4:
                 return
             else:
                 count += 1
             
             if not keybind == "":
-                keybind += " + "
-            keybind += keypress_event
-        self.keybind_label.configure(text=keybind.upper())
-        
+                keybind += "+"
+            keybind += str(keypress_event)
+        try:
+            self.keybind_label.configure(text=keybind.upper())
+        except:
+            pass
 
 def save_keybinds():
-    config_data = config.read_config()
-    config_data[global_config_key] = keybind
-    config.save_config(config_data)
+    if keybind == "\\":
+        global_parent_config[global_config_key] = "\\"    
+    global_parent_config[global_config_key] = keybind
+    config.save_config(config.config_data)
     main_gui.MainWindow.reload_config_data(main_window)
     window.on_close()
 
-def get_keybinds(main_window_id, feature, config_key):
+def get_keybinds(main_window_id, feature, parent_config, config_key):
+    global global_parent_config
     global global_config_key
     global window
     global main_window
@@ -92,6 +107,7 @@ def get_keybinds(main_window_id, feature, config_key):
     keybind = ""
     main_window = main_window_id
 
+    global_parent_config = parent_config
     global_config_key = config_key
     if window == None or not window.winfo_exists():
         window = KeybindsWindow(feature)
