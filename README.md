@@ -29,7 +29,6 @@ Radiance Macro has a couple of different features it is capable of. These includ
 - **steveonly1** | _Radiance Macro Development_
 - **noteab** | _dSIM Development_
 ### Developers
-- **TheEndyy** | _Roll detection_
 - **bored man**
 ### Graphical Designer
 - **Cate**
