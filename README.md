@@ -27,10 +27,7 @@ Radiance Macro has a couple of different features that it will have. These inclu
 # Radiant Team
 ### Owners
 - **Curious Pengu** | _Pathing Development, Radiance Macro Development, Genesis Stat Tracker, Lunaria Pathing System_
-- **steveonly1** | _Radiance Macro Development_
-- **noteab** | _dSIM Development_
-### Developers
-- **bored man**
+- **ManasAarohi** | _Pathing_
 ### Graphical Designer
 - **Cate**
 
