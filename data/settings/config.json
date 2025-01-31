@@ -8,15 +8,15 @@
         "theme": "Monodim"
     },
     "themes": {
-        "Monodim": "/settings/themes/monodim.json",
-        "Monodim Light": "/settings/themes/monodim_light.json",
-        "Monokai": "/settings/themes/monokai.json",
-        "Midnight Cyan": "/settings/themes/midnight_cyan.json",
-        "Midnight White": "/settings/themes/midnight_while.json",
-        "Midnight Yellow": "/settings/themes/midnight_green.json",
-        "Obsidian Noir": "/settings/themes/obsidian_noir.json",
-        "Evegreen": "/settings/themes/evergreen.json",
-        "Dark Default Blue": "/settings/themes/ddb.json"
+        "Monodim": "/data/settings/themes/monodim.json",
+        "Monodim Light": "/data/settings/themes/monodim_light.json",
+        "Monokai": "/data/settings/themes/monokai.json",
+        "Midnight Cyan": "/data/settings/themes/midnight_cyan.json",
+        "Midnight White": "/data/settings/themes/midnight_while.json",
+        "Midnight Yellow": "/data/settings/themes/midnight_green.json",
+        "Obsidian Noir": "/data/settings/themes/obsidian_noir.json",
+        "Evegreen": "/data/settings/themes/evergreen.json",
+        "Dark Default Blue": "/data/settings/themes/ddb.json"
     },
     "discord": {
         "user_id": "1209735284988579861",
