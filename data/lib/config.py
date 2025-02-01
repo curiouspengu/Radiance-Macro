@@ -133,7 +133,7 @@ def theme_path():
     if "/" in config_data["paths"]["theme"]:
         return config_data["paths"]["theme"]
     else:
-        return parent_path() + config_data["themes"][config_data["paths"]["theme"]]
+        return f"{parent_path()}{config_data['themes'][config_data['paths']['theme']]}"
 
 def read_theme(key=""):
     with open(theme_path()) as theme_file:
