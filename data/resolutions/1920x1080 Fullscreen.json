@@ -1,0 +1,8 @@
+{
+    "version": "2-0.dev.2",
+    "resolution_name": "1920x1080 Fullscreen",
+    "potion_crafting": {
+        "leaderboard_close_button": "1453,56,1458,98",
+        "autoroll_button": "680,990,883,995"
+    }
+}

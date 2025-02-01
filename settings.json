@@ -1,0 +1,46 @@
+{
+    "NOTE": "\\ is equal to backslash",
+    "ui_navigation_key": "\\",
+    "resolution": {
+        "current": "/data/resolutions/1920x1080 Fullscreen.json"
+    },
+    "system_keybinds": {
+        "start": "F1",
+        "stop": "F2"
+    },
+    "settings": {
+        "vip_mode": "0",
+        "vip+_mode": "0",
+        "azerty_mode": "0",
+        "sleep": "0.05"
+    },
+    "potion_crafting": {
+        "enabled": "0",
+        "interval (minutes)": "20",
+        "temporary_auto_add": "1",
+        "options": {
+            "Fortune Potion I": "1",
+            "Fortune Potion II": "0",
+            "Fortune Potion III": "0",
+            "Haste Potion I": "0",
+            "Haste Potion II": "0",
+            "Haste Potion III": "0",
+            "Heavenly Potion I": "0",
+            "Heavenly Potion II": "0",
+            "Warp Potion": "0"
+
+        }
+    },
+    "actions": {
+        "align_camera": "https://raw.githubusercontent.com/curiouspengu/Radiance-Actions/refs/heads/main/align_camera.py",
+        "click_menu_button": "https://raw.githubusercontent.com/curiouspengu/Radiance-Actions/refs/heads/main/click_menu_button.py",
+        "potion_path": "https://raw.githubusercontent.com/curiouspengu/Radiance-Actions/refs/heads/main/potion_path.py",
+        "craft_potion": "https://raw.githubusercontent.com/curiouspengu/Radiance-Actions/refs/heads/main/craft_potion.py"
+    },
+    "default_actions (for user reference)": {
+        "align_camera": "https://raw.githubusercontent.com/curiouspengu/Radiance-Actions/refs/heads/main/align_camera.py",
+        "click_menu_button": "https://raw.githubusercontent.com/curiouspengu/Radiance-Actions/refs/heads/main/click_menu_button.py",
+        "potion_path": "https://raw.githubusercontent.com/curiouspengu/Radiance-Actions/refs/heads/main/potion_path.py",
+        "craft_potion": "https://raw.githubusercontent.com/curiouspengu/Radiance-Actions/refs/heads/main/craft_potion.py"
+    }
+}

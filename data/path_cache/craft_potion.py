@@ -1,3 +1,5 @@
+resolution_settings = config.read_resolution()
+
 def detect_ui_nav(bbox):
     px = ImageGrab.grab(bbox).load()
     for x in range(0, bbox[2] - bbox[0]):
@@ -68,7 +70,7 @@ while restart == True:
             tap(Key.right)
             tap(Key.enter)
             
-            if detect_ui_nav([1453, 56, 1458, 98]) == True:
+            if detect_ui_nav([eval(i) for i in resolution_settings["potion_crafting"]["leaderboard_close_button"].split(",")]) == True:
                 for i in range(2):
                     tap(Key.left)
                 restart = True
@@ -81,7 +83,7 @@ while restart == True:
                 max_input = -(max_input // -2.0)
         tap(Key.down)
         
-        if detect_ui_nav([680, 990, 883, 995]) == True: # Recorded in 1920x1080 100%
+        if detect_ui_nav([eval(i) for i in resolution_settings["potion_crafting"]["autoroll_button"].split(",")]) == True: # Recorded in 1920x1080 100%
             break
         if restart == True:
             break

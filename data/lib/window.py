@@ -1,4 +1,4 @@
-from data.lib.auto import ahk
+from lib.auto import ahk
 
 import win32gui
 class Position():
@@ -18,7 +18,8 @@ def get_roblox_HWND():
     for i in top_windows:
         if "roblox" in i[1].lower():
             return i[0]
-    return -1
+    print("ERROR: ROBLOX WINDOW NOT DETECTED")
+    exit(-1)
 
 def check_radiance_windows():
     top_windows = []

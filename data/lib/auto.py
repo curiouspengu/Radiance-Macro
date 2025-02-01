@@ -1,4 +1,4 @@
-from data.lib import config
+from lib import config
 from ahk import AHK
 
 from pynput import mouse, keyboard

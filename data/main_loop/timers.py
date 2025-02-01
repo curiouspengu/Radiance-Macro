@@ -1,4 +1,4 @@
-from data.lib import config
+from lib import config
 import datetime
 
 timers = []
@@ -13,7 +13,7 @@ def add_timer(interval_time, function_to_run):
 
 def initialize():
     global timers
-    from data.potion_crafting import potion_crafting
+    from potion_crafting import potion_crafting
     add_timer(int(config.config_data["potion_crafting"]["interval"]), potion_crafting.craft_potions)
 
 def check_timers():

@@ -2,13 +2,13 @@ import ctypes
 from time import sleep
 
 try:
-    from data.lib import config
+    from lib import config
 except ImportError:
     ctypes.windll.user32.MessageBoxW(0, "CONFIG FILE NOT FOUND", "Error", 0)
 
-from data.lib.auto import kc, ahk
-from data.lib.actionlib import *
-from data.lib import window
+from lib.auto import kc, ahk
+from lib.actionlib import *
+from lib import window
 
 from PIL import ImageGrab
 from pynput.keyboard import Key
@@ -32,7 +32,7 @@ def craft_potions():
     ran = False
     while ran == False:
         for potion in config.config_data["potion_crafting"]["options"]:
-            if config.config_data["potion_crafting"]["options"][potion]["enabled"] == "1":
+            if config.settings_data["potion_crafting"]["options"][potion] == "1":
                 if potion == config.config_data["potion_crafting"]["current_temporary_auto_add"]:
                     first = True
                 elif first == True:
@@ -44,7 +44,7 @@ def craft_potions():
     # ACUTAL PROGRAM
     exec(get_action("potion_path.py"))
     for potion in config.config_data["potion_crafting"]["options"]:
-        if config.config_data["potion_crafting"]["options"][potion]["enabled"] == "1":
+        if config.settings_data["potion_crafting"]["options"][potion] == "1":
             craft_potion(potion)
     
     # Close and End

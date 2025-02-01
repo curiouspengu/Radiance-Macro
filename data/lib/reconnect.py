@@ -1,8 +1,8 @@
 # TODO
 from time import sleep
 
-from data.lib import window
-from data.lib import config
+from lib import window
+from lib import config
 
 import win32gui
 

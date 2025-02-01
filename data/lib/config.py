@@ -1,21 +1,24 @@
 import ctypes
 import json
 
-from customtkinter import *
 from PIL import Image, ImageDraw
 
 import requests
 
-ONLINE_CONFIG_URL = "https://raw.githubusercontent.com/curiouspengu/Radiance-Macro/refs/heads/main/data/settings/config.json"
 
-with open("path.txt", "r") as file:
+with open(".p.txt", "r") as file:
+    settings_path = f"{file.read()}\\settings.json"
+
+with open(".p.txt", "r") as file:
     config_path = f"{file.read()}\\data\\settings\\config.json"
+
 config_data = None
+settings_data = None
 
 def get_current_version():
     return read_config()["version"]
 
-def read_config(key=""):
+def read_config():
     # try:
     with open(config_path) as config_file:
         config_data = config_file.read()
@@ -23,21 +26,27 @@ def read_config(key=""):
         if len(config_data) == 0:
             ctypes.windll.user32.MessageBoxW(0, "CONFIG DATA NOT FOUND", "Error", 0)
             exit(1)
-        if not key == "":
-            return config_data[key]
         return config_data
     # except:
     #     ctypes.windll.user32.MessageBoxW(0, "CONFIG DATA ERROR!", "Error", 0)
 
-def read_remote():
-    try:
-        online_config_data = requests.get(ONLINE_CONFIG_URL).json()
-        if len(online_config_data) == 0:
-            ctypes.windll.user32.MessageBoxW(0, "ONLINE CONFIG DATA NOT FOUND", "Error", 0)
+def read_settings():
+    with open(settings_path) as settings_file:
+        settings_data = settings_file.read()
+        settings_data = json.loads(settings_data)
+        if len(settings_data) == 0:
+            ctypes.windll.user32.MessageBoxW(0, "SETTINGS DATA NOT FOUND", "Error", 0)
             exit(1)
-        return online_config_data
-    except:
-        ctypes.windll.user32.MessageBoxW(0, "ONLINE URL NOT FOUND. CANNOT RUN UPDATE CHECKER", "Error", 0)
+        return settings_data
+    
+def read_resolution():
+    return read_json(read_settings()["resolution"]["current"])
+
+def save_resolution(data):
+    with open(".p.txt", "r") as file:
+        path = file.read()
+    with open(path + config_data["resolutions"]["resolution"], 'w') as file:
+        json.dump(data, file, indent=4)
 
 def save_config(config_data_p):
     global config_data
@@ -67,8 +76,8 @@ def iterate_generate_dict(json_object, var_list):
         else:
             var_list[key] = StringVar(value=json_object[key])
 
-def generate_tk_list():
-    config_data = read_config()
+def generate_tk_resolution_list():
+    config_data = read_resolution()
     tk_var_list = {}
     iterate_generate_dict(config_data, tk_var_list)
     return tk_var_list
@@ -98,8 +107,13 @@ def save_tk_list(tk_var_list):
     iterate_save_dict(config_data, tk_var_list)
     save_config(config_data)
 
+def save_tk_resolution_list(tk_var_list):
+    data = read_resolution()
+    iterate_save_dict(data, tk_var_list)
+    save_resolution(data)
+
 def parent_path():
-    with open("path.txt", "r") as file:
+    with open(".p.txt", "r") as file:
         return file.read()
 
 def round_corners(im, rad):
@@ -149,4 +163,13 @@ def save_theme_path(path):
 def convert_to_ahk():
     pass
 
+tk_var_list = None
+
+def generate_tk_list():
+    global tk_var_list
+    config_data = read_config()
+    tk_var_list = {}
+    iterate_generate_dict(config_data, tk_var_list)
+
 config_data = read_config()
+settings_data = read_settings()
