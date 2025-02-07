@@ -19,13 +19,13 @@
         "interval (minutes)": "20",
         "temporary_auto_add": "1",
         "options": {
-            "Fortune Potion I": "1",
+            "Fortune Potion I": "0",
             "Fortune Potion II": "0",
             "Fortune Potion III": "0",
             "Haste Potion I": "0",
             "Haste Potion II": "0",
             "Haste Potion III": "0",
-            "Heavenly Potion I": "0",
+            "Heavenly Potion I": "1",
             "Heavenly Potion II": "0",
             "Warp Potion": "0"
 

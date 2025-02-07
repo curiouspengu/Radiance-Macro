@@ -31,7 +31,6 @@ main_process = None
 # treat this like a seperate file, everything gets reset
 def main_loop():
     print("[MAINLOOP STARTED]")
-    
     actionlib.load_actions()
 
     align_camera()

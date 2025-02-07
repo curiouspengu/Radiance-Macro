@@ -2,7 +2,7 @@
     "version": "v2-beta.1-patch.3",
     "potion_crafting": {
         "interval": "20",
-        "current_temporary_auto_add": "Fortune Potion II",
+        "current_temporary_auto_add": "Heavenly Potion I",
         "enabled": "0",
         "options": {
             "Fortune Potion I": {

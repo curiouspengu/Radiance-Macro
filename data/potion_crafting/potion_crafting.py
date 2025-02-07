@@ -28,19 +28,24 @@ def craft_potion(potion_name):
 
 def craft_potions():
     # TEMPORARY AUTO ADD
-    first = False
-    ran = False
-    while ran == False:
-        for potion in config.config_data["potion_crafting"]["options"]:
-            if config.settings_data["potion_crafting"]["options"][potion] == "1":
-                if potion == config.config_data["potion_crafting"]["current_temporary_auto_add"]:
-                    first = True
-                elif first == True:
-                    ran = True
-                    config.config_data["potion_crafting"]["current_temporary_auto_add"] = potion
-                    config.save_config(config.config_data)
-                    break
     
+    first = False
+    if config.settings_data["potion_crafting"]["temporary_auto_add"] == "1":
+        for _ in range(2):
+            for potion in config.config_data["potion_crafting"]["options"]:
+                if config.settings_data["potion_crafting"]["options"][potion] == "1":
+                    if potion == config.config_data["potion_crafting"]["current_temporary_auto_add"]:
+                        first = True
+                    elif first == True:
+                        config.config_data["potion_crafting"]["current_temporary_auto_add"] = potion
+                        config.save_config(config.config_data)
+                        break
+            if first == False:
+                for potion in config.config_data["potion_crafting"]["options"]:
+                    if config.settings_data["potion_crafting"]["options"][potion] == "1":
+                        config.config_data["potion_crafting"]["current_temporary_auto_add"] = potion
+                        config.save_config(config.config_data)
+                        break            
     # ACUTAL PROGRAM
     exec(get_action("potion_path.py"))
     for potion in config.config_data["potion_crafting"]["options"]:
