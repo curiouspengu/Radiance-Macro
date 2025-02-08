@@ -10,13 +10,13 @@
     },
     "settings": {
         "vip_mode": "0",
-        "vip+_mode": "1",
+        "vip+_mode": "0",
         "azerty_mode": "0",
         "sleep": "0.05"
     },
     "do_obby": "1",
     "potion_crafting": {
-        "enabled": "0",
+        "enabled": "1",
         "interval (minutes)": "20",
         "temporary_auto_add": "1",
         "options": {
