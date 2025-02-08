@@ -33,6 +33,9 @@ def main_loop():
     print("[MAINLOOP STARTED]")
     actionlib.load_actions()
 
+    for key in ['w', 'a', 's', 'd', keyboard.Key.space]:
+        kc.release(key)
+
     align_camera()
     timers.initialize()
     

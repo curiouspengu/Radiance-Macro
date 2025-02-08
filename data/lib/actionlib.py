@@ -17,7 +17,7 @@ def walk_time_conversion(d):
     if config.settings_data["settings"]["vip+_mode"] == "1":
         return d
     elif config.settings_data["settings"]["vip_mode"] == "1":
-        return d * 1.25
+        return d * 1.04
     else:
         return d * 1.3
 

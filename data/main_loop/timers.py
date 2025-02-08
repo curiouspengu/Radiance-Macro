@@ -1,4 +1,6 @@
 from lib import config
+from lib.actionlib import *
+
 import datetime
 
 timers = []
@@ -13,8 +15,14 @@ def add_timer(interval_time, function_to_run):
 
 def initialize():
     global timers
+
     from potion_crafting import potion_crafting
-    add_timer(int(config.config_data["potion_crafting"]["interval"]), potion_crafting.craft_potions)
+    if config.settings_data["potion_crafting"]["enabled"] == "1":
+        add_timer(int(config.config_data["potion_crafting"]["interval"]), potion_crafting.craft_potions)
+
+    if config.settings_data["do_obby"] == "1":
+        if config.settings_data["settings"]["vip+_mode"] == "1":
+            add_timer(2, lambda: exec(get_action("vip+_obby_path.py")))
 
 def check_timers():
     global timers
