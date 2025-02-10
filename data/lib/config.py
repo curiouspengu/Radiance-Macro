@@ -6,10 +6,10 @@ from PIL import Image, ImageDraw
 import requests
 
 
-with open(".p.txt", "r") as file:
+with open(".p.txt", "r", encoding="utf-8") as file:
     settings_path = f"{file.read()}\\settings.json"
 
-with open(".p.txt", "r") as file:
+with open(".p.txt", "r", encoding="utf-8") as file:
     config_path = f"{file.read()}\\data\\settings\\config.json"
 
 config_data = None
@@ -20,7 +20,7 @@ def get_current_version():
 
 def read_config():
     # try:
-    with open(config_path) as config_file:
+    with open(config_path, encoding="utf-8") as config_file:
         config_data = config_file.read()
         config_data = json.loads(config_data)
         if len(config_data) == 0:
@@ -31,7 +31,7 @@ def read_config():
     #     ctypes.windll.user32.MessageBoxW(0, "CONFIG DATA ERROR!", "Error", 0)
 
 def read_settings():
-    with open(settings_path) as settings_file:
+    with open(settings_path, encoding="utf-8") as settings_file:
         settings_data = settings_file.read()
         settings_data = json.loads(settings_data)
         if len(settings_data) == 0:
@@ -43,14 +43,14 @@ def read_resolution():
     return read_json(read_settings()["resolution"]["current"])
 
 def save_resolution(data):
-    with open(".p.txt", "r") as file:
+    with open(".p.txt", "r", encoding="utf-8") as file:
         path = file.read()
-    with open(path + config_data["resolutions"]["resolution"], 'w') as file:
+    with open(path + config_data["resolutions"]["resolution"], 'w', encoding="utf-8") as file:
         json.dump(data, file, indent=4)
 
 def save_config(config_data_p):
     global config_data
-    with open(config_path, 'w') as config_file:
+    with open(config_path, 'w', encoding="utf-8") as config_file:
         json.dump(config_data_p, config_file, indent=4)
     config_data = read_config()
 
@@ -113,7 +113,7 @@ def save_tk_resolution_list(tk_var_list):
     save_resolution(data)
 
 def parent_path():
-    with open(".p.txt", "r") as file:
+    with open(".p.txt", "r", encoding="utf-8") as file:
         return file.read()
 
 def round_corners(im, rad):
@@ -136,7 +136,7 @@ def theme_path():
         return f"{parent_path()}{config_data['themes'][config_data['paths']['theme']]}"
 
 def read_theme(key=""):
-    with open(theme_path()) as theme_file:
+    with open(theme_path(), encoding="utf-8") as theme_file:
         theme_data = json.load(theme_file)
         if len(theme_data) == 0:
             ctypes.windll.user32.MessageBoxW(0, "THEME FILE NOT FOUND", "Error", 0)
@@ -146,7 +146,7 @@ def read_theme(key=""):
         return theme_data
 
 def read_json(path, key=""):
-    with open(f"{parent_path()}{path}") as file:
+    with open(f"{parent_path()}{path}", encoding="utf-8") as file:
         data = json.load(file)
         if len(data) == 0:
             ctypes.windll.user32.MessageBoxW(0, "JSON FILE NOT FOUND", "Error", 0)

@@ -53,20 +53,20 @@ def tap(key):
     tap_sleep()
 
 def get_action(file):
-    with open(".p.txt") as path_file:
-        with open(f'{path_file.read()}\\data\\path_cache\\{file}') as file:
+    with open(".p.txt", encoding="utf-8") as path_file:
+        with open(f'{path_file.read()}\\data\\path_cache\\{file}', encoding="utf-8") as file:
             return file.read()
 
 def load_actions():
     for action in config.settings_data["actions"]:
-        with open(".p.txt") as path_file:
-            with open(f"{path_file.read()}\\data\\path_cache\\{action}.py", "w") as file:
+        with open(".p.txt", encoding="utf-8") as path_file:
+            with open(f"{path_file.read()}\\data\\path_cache\\{action}.py", "w", encoding="utf-8") as file:
                 link = config.settings_data["actions"][action]
                 if "https://" in link:
                     file.write(requests.get(link).text)
                 else:
                     try:
-                        with open(link):
+                        with open(link, encoding="utf-8"):
                             file.write(link.read())
                     except:
                         ctypes.windll.user32.MessageBoxW(0, "Custom Action FileNotFound!", "Error", 0)

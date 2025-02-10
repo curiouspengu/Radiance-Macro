@@ -28,7 +28,7 @@ def set_path():
     #     from lib import config
     # except ImportError:
     #     ctypes.windll.user32.MessageBoxW(0, "CONFIG FILE NOT FOUND", "Error", 0)
-    with open(".p.txt", "w") as file:
+    with open(".p.txt", "w", encoding="utf-8") as file:
         file.write(str(pathlib.Path(__file__).parent.parent.resolve()))
 
 def main():
