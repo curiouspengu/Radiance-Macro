@@ -1,5 +1,5 @@
 {
-    "version": "v2-beta.build.2.9.25",
+    "version": "v2-beta.build.2.15.25",
     "potion_crafting": {
         "interval": "20",
         "current_temporary_auto_add": "Heavenly Potion I",
